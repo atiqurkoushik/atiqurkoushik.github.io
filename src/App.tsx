@@ -11,6 +11,7 @@ import ProjectEmailAutomation from "./pages/ProjectEmailAutomation.tsx";
 import ProjectWoocommerce from "./pages/ProjectWoocommerce.tsx";
 import ProjectMetaAds from "./pages/ProjectMetaAds.tsx";
 import ProjectMarketingWebsite from "./pages/ProjectMarketingWebsite.tsx";
+import AllProjects from "./pages/AllProjects.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 
