@@ -13,7 +13,7 @@ const projects = [
     desc: "Full-featured HRM with night shift support (8PM-5AM), 1:3 late penalty ratio, auto payroll with attendance-based adjustments, and real-time clock-in/out tracking. Built for modern workforce management.",
     tags: ["React", "Node.js", "Supabase"],
     category: "SaaS",
-    color: "glow-purple",
+    link: "/project/hrm",
     image: hrmPreview,
     features: [
       { icon: Clock, label: "Night Shift 8PM-5AM" },
