@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, Github, Linkedin, Twitter, Mail, MapPin } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Github, Linkedin, Twitter, Mail, MapPin, ChevronRight, ChevronLeft, Check, User, Building2, AtSign, Phone, Briefcase, MessageSquare } from "lucide-react";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com", label: "GitHub" },
@@ -9,15 +9,97 @@ const socialLinks = [
   { icon: Mail, href: "mailto:hello@koushikatiqur.com", label: "Email" },
 ];
 
-const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+const services = [
+  "Web Development",
+  "Sales Strategy",
+  "Digital Marketing",
+  "Tech Consulting",
+  "Product Launch",
+  "E-Commerce Automation",
+  "Others",
+];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Placeholder — would hook to backend later
-    alert("Thanks for reaching out! I'll get back to you soon.");
-    setForm({ name: "", email: "", message: "" });
+const steps = [
+  { id: 1, title: "Personal Info", icon: User },
+  { id: 2, title: "Contact Details", icon: AtSign },
+  { id: 3, title: "Project Info", icon: Briefcase },
+];
+
+const Contact = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [direction, setDirection] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    businessName: "",
+    email: "",
+    phone: "",
+    service: "",
+    note: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validateStep = (step: number): boolean => {
+    const newErrors: Record<string, string> = {};
+    if (step === 1) {
+      if (!form.firstName.trim()) newErrors.firstName = "First name is required";
+      if (!form.lastName.trim()) newErrors.lastName = "Last name is required";
+      if (!form.businessName.trim()) newErrors.businessName = "Business name is required";
+    } else if (step === 2) {
+      if (!form.email.trim()) newErrors.email = "Email is required";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) newErrors.email = "Invalid email";
+      if (!form.phone.trim()) newErrors.phone = "Phone number is required";
+    } else if (step === 3) {
+      if (!form.service) newErrors.service = "Please select a service";
+      if (!form.note.trim()) newErrors.note = "Please add a note";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
+
+  const nextStep = () => {
+    if (validateStep(currentStep) && currentStep < 3) {
+      setDirection(1);
+      setCurrentStep((s) => s + 1);
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setDirection(-1);
+      setCurrentStep((s) => s - 1);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateStep(3)) return;
+    setIsSubmitting(true);
+    await new Promise((r) => setTimeout(r, 1500));
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setForm({ firstName: "", lastName: "", businessName: "", email: "", phone: "", service: "", note: "" });
+      setCurrentStep(1);
+    }, 3000);
+  };
+
+  const update = (field: string, value: string) => {
+    setForm((f) => ({ ...f, [field]: value }));
+    if (errors[field]) setErrors((e) => { const n = { ...e }; delete n[field]; return n; });
+  };
+
+  const variants = {
+    enter: (d: number) => ({ x: d > 0 ? 80 : -80, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (d: number) => ({ x: d > 0 ? -80 : 80, opacity: 0 }),
+  };
+
+  const inputClass = (field: string) =>
+    `w-full px-4 py-3.5 rounded-xl bg-secondary/30 border ${errors[field] ? "border-destructive" : "border-border/50"} text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-all duration-300 backdrop-blur-sm`;
 
   return (
     <section id="contact" className="py-24 md:py-32 relative">
@@ -41,56 +123,279 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {/* Form */}
-          <motion.form
-            onSubmit={handleSubmit}
+          {/* Multi-Step Form */}
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass rounded-2xl p-8 space-y-6"
+            className="glass rounded-2xl p-8 relative overflow-hidden"
           >
-            {[
-              { id: "name", label: "Name", type: "text", placeholder: "Your name" },
-              { id: "email", label: "Email", type: "email", placeholder: "you@example.com" },
-            ].map((field) => (
-              <div key={field.id}>
-                <label htmlFor={field.id} className="block text-sm font-medium mb-2">
-                  {field.label}
-                </label>
-                <input
-                  id={field.id}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  value={form[field.id as keyof typeof form]}
-                  onChange={(e) => setForm({ ...form, [field.id]: e.target.value })}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-secondary/50 border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                />
-              </div>
-            ))}
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-2">
-                Message
-              </label>
-              <textarea
-                id="message"
-                rows={5}
-                placeholder="Tell me about your project..."
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                required
-                className="w-full px-4 py-3 rounded-lg bg-secondary/50 border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
-              />
+            {/* Step Indicator */}
+            <div className="flex items-center justify-between mb-8">
+              {steps.map((step, i) => (
+                <div key={step.id} className="flex items-center flex-1">
+                  <div className="flex flex-col items-center relative z-10">
+                    <motion.div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-500 ${
+                        currentStep > step.id
+                          ? "bg-primary text-primary-foreground"
+                          : currentStep === step.id
+                          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                          : "bg-secondary/50 text-muted-foreground border border-border/50"
+                      }`}
+                      animate={currentStep === step.id ? { scale: [1, 1.1, 1] } : {}}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {currentStep > step.id ? <Check size={16} /> : <step.icon size={16} />}
+                    </motion.div>
+                    <span className={`text-[11px] mt-1.5 font-medium transition-colors ${
+                      currentStep >= step.id ? "text-primary" : "text-muted-foreground/60"
+                    }`}>
+                      {step.title}
+                    </span>
+                  </div>
+                  {i < steps.length - 1 && (
+                    <div className="flex-1 h-[2px] mx-2 mb-5 rounded-full overflow-hidden bg-border/30">
+                      <motion.div
+                        className="h-full bg-primary rounded-full"
+                        initial={{ width: "0%" }}
+                        animate={{ width: currentStep > step.id ? "100%" : "0%" }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-            <button
-              type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:glow-purple transition-all duration-300 hover:scale-[1.02]"
-            >
-              <Send size={18} />
-              Send Message
-            </button>
-          </motion.form>
+
+            <form onSubmit={handleSubmit}>
+              <AnimatePresence mode="wait" custom={direction}>
+                {/* Step 1: Personal Info */}
+                {currentStep === 1 && (
+                  <motion.div
+                    key="step1"
+                    custom={direction}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="space-y-5"
+                  >
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="flex items-center gap-2 text-sm font-medium mb-2 text-foreground/80">
+                          <User size={14} className="text-primary" /> First Name
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="John"
+                          value={form.firstName}
+                          onChange={(e) => update("firstName", e.target.value)}
+                          className={inputClass("firstName")}
+                        />
+                        {errors.firstName && <p className="text-destructive text-xs mt-1">{errors.firstName}</p>}
+                      </div>
+                      <div>
+                        <label className="flex items-center gap-2 text-sm font-medium mb-2 text-foreground/80">
+                          <User size={14} className="text-primary" /> Last Name
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="Doe"
+                          value={form.lastName}
+                          onChange={(e) => update("lastName", e.target.value)}
+                          className={inputClass("lastName")}
+                        />
+                        {errors.lastName && <p className="text-destructive text-xs mt-1">{errors.lastName}</p>}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="flex items-center gap-2 text-sm font-medium mb-2 text-foreground/80">
+                        <Building2 size={14} className="text-primary" /> Business Name
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Your company"
+                        value={form.businessName}
+                        onChange={(e) => update("businessName", e.target.value)}
+                        className={inputClass("businessName")}
+                      />
+                      {errors.businessName && <p className="text-destructive text-xs mt-1">{errors.businessName}</p>}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 2: Contact Details */}
+                {currentStep === 2 && (
+                  <motion.div
+                    key="step2"
+                    custom={direction}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="space-y-5"
+                  >
+                    <div>
+                      <label className="flex items-center gap-2 text-sm font-medium mb-2 text-foreground/80">
+                        <AtSign size={14} className="text-primary" /> What is your best email?
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="you@example.com"
+                        value={form.email}
+                        onChange={(e) => update("email", e.target.value)}
+                        className={inputClass("email")}
+                      />
+                      {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
+                    </div>
+                    <div>
+                      <label className="flex items-center gap-2 text-sm font-medium mb-2 text-foreground/80">
+                        <Phone size={14} className="text-primary" /> What is your best contact number?
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                        value={form.phone}
+                        onChange={(e) => update("phone", e.target.value)}
+                        className={inputClass("phone")}
+                      />
+                      {errors.phone && <p className="text-destructive text-xs mt-1">{errors.phone}</p>}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 3: Project Info */}
+                {currentStep === 3 && (
+                  <motion.div
+                    key="step3"
+                    custom={direction}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="space-y-5"
+                  >
+                    <div>
+                      <label className="flex items-center gap-2 text-sm font-medium mb-2 text-foreground/80">
+                        <Briefcase size={14} className="text-primary" /> What service are you interested in?
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={form.service}
+                          onChange={(e) => update("service", e.target.value)}
+                          className={`${inputClass("service")} appearance-none cursor-pointer pr-10`}
+                        >
+                          <option value="" disabled>Select a service...</option>
+                          {services.map((s) => (
+                            <option key={s} value={s} className="bg-background text-foreground">{s}</option>
+                          ))}
+                        </select>
+                        <ChevronRight size={16} className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-muted-foreground pointer-events-none" />
+                      </div>
+                      {errors.service && <p className="text-destructive text-xs mt-1">{errors.service}</p>}
+                    </div>
+                    <div>
+                      <label className="flex items-center gap-2 text-sm font-medium mb-2 text-foreground/80">
+                        <MessageSquare size={14} className="text-primary" /> Note
+                      </label>
+                      <textarea
+                        rows={4}
+                        placeholder="Tell me about your project, goals, timeline..."
+                        value={form.note}
+                        onChange={(e) => update("note", e.target.value)}
+                        className={`${inputClass("note")} resize-none`}
+                      />
+                      {errors.note && <p className="text-destructive text-xs mt-1">{errors.note}</p>}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Navigation Buttons */}
+              <div className="flex items-center justify-between mt-8 gap-4">
+                {currentStep > 1 ? (
+                  <motion.button
+                    type="button"
+                    onClick={prevStep}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl border border-border/50 text-muted-foreground hover:text-foreground hover:border-border transition-all duration-300 font-medium"
+                  >
+                    <ChevronLeft size={16} /> Back
+                  </motion.button>
+                ) : (
+                  <div />
+                )}
+
+                {currentStep < 3 ? (
+                  <motion.button
+                    type="button"
+                    onClick={nextStep}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-2 px-8 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                  >
+                    Continue <ChevronRight size={16} />
+                  </motion.button>
+                ) : (
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting || isSubmitted}
+                    whileHover={!isSubmitting && !isSubmitted ? { scale: 1.02 } : {}}
+                    whileTap={!isSubmitting && !isSubmitted ? { scale: 0.98 } : {}}
+                    className={`relative flex items-center gap-2 px-8 py-3 rounded-xl font-semibold transition-all duration-500 overflow-hidden ${
+                      isSubmitted
+                        ? "bg-green-500 text-white"
+                        : "bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/25"
+                    }`}
+                  >
+                    <AnimatePresence mode="wait">
+                      {isSubmitting ? (
+                        <motion.div
+                          key="loading"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="flex items-center gap-2"
+                        >
+                          <motion.div
+                            className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          />
+                          Sending...
+                        </motion.div>
+                      ) : isSubmitted ? (
+                        <motion.div
+                          key="success"
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="flex items-center gap-2"
+                        >
+                          <Check size={18} /> Sent!
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="submit"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="flex items-center gap-2"
+                        >
+                          <Send size={16} /> Send Message
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.button>
+                )}
+              </div>
+            </form>
+          </motion.div>
 
           {/* Info */}
           <motion.div
