@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Users, Clock, AlertTriangle, DollarSign, Activity } from "lucide-react";
+import hrmPreview from "@/assets/hrm-preview.png";
 
 const categories = ["All", "Web App", "Marketing", "SaaS", "E-Commerce"];
 
 const projects = [
   {
-    title: "Revenue Dashboard Pro",
-    desc: "Real-time analytics dashboard for sales teams. Built with React, D3.js, and Node.js. Increased team productivity by 40%.",
-    tags: ["React", "Node.js", "D3.js"],
+    title: "HRM",
+    subtitle: "Human Resource Management System",
+    desc: "Full-featured HRM with night shift support (8PM-5AM), 1:3 late penalty ratio, auto payroll with attendance-based adjustments, and real-time clock-in/out tracking. Built for modern workforce management.",
+    tags: ["React", "Node.js", "Supabase"],
     category: "SaaS",
     color: "glow-purple",
+    image: hrmPreview,
+    features: [
+      { icon: Clock, label: "Night Shift 8PM-5AM" },
+      { icon: AlertTriangle, label: "1:3 Late Penalty" },
+      { icon: DollarSign, label: "Auto Payroll" },
+      { icon: Activity, label: "Real-time Attendance" },
+    ],
   },
   {
     title: "E-Com Funnel Optimizer",
@@ -101,17 +110,36 @@ const Projects = () => {
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 className={`glass rounded-2xl p-6 group cursor-pointer hover:${project.color} transition-all duration-500`}
               >
-                {/* Placeholder thumbnail */}
+                {/* Thumbnail */}
                 <div className="w-full h-40 rounded-xl bg-gradient-to-br from-primary/20 via-secondary to-accent/20 mb-5 flex items-center justify-center overflow-hidden">
-                  <span className="text-4xl font-heading font-bold gradient-text opacity-30 group-hover:opacity-60 transition-opacity">
-                    {project.title.split(" ").map((w) => w[0]).join("")}
-                  </span>
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover object-top" />
+                  ) : (
+                    <span className="text-4xl font-heading font-bold gradient-text opacity-30 group-hover:opacity-60 transition-opacity">
+                      {project.title.split(" ").map((w) => w[0]).join("")}
+                    </span>
+                  )}
                 </div>
 
-                <h3 className="text-lg font-heading font-semibold mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-lg font-heading font-semibold mb-1 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
+                {project.subtitle && (
+                  <p className="text-xs text-neon-purple font-mono mb-2">{project.subtitle}</p>
+                )}
                 <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{project.desc}</p>
+
+                {/* Features */}
+                {project.features && (
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    {project.features.map((f) => (
+                      <div key={f.label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <f.icon size={12} className="text-neon-purple shrink-0" />
+                        <span className="truncate">{f.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag) => (
@@ -124,9 +152,6 @@ const Projects = () => {
                 <div className="flex gap-3">
                   <button className="p-2 rounded-lg glass hover:glow-purple transition-all" aria-label="Live demo">
                     <ExternalLink size={16} />
-                  </button>
-                  <button className="p-2 rounded-lg glass hover:glow-blue transition-all" aria-label="Source code">
-                    <Github size={16} />
                   </button>
                 </div>
               </motion.div>
