@@ -78,6 +78,18 @@ const features = [
     subtitle: "Live Tracking",
     desc: "Track employee attendance with live clock-in/out status, GPS verification, and instant notifications.",
   },
+  {
+    icon: Users,
+    title: "Hiring Process",
+    subtitle: "End-to-End Pipeline",
+    desc: "Streamlined recruitment workflow from job posting to onboarding — track candidates, schedule interviews, and manage offers.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Sales CRM",
+    subtitle: "Pipeline Management",
+    desc: "Built-in CRM to track leads, manage client relationships, monitor sales pipelines, and forecast revenue.",
+  },
 ];
 
 const stats = [
