@@ -68,6 +68,13 @@ const certifications = [
     iconBg: "bg-blue-600",
     isMeta: true,
   },
+  {
+    title: "Digital Literacy for Youth",
+    org: "Digital Literacy — Bangladesh Govt.",
+    issued: "Oct 2022",
+    credentialId: "14057849",
+    isGovt: true,
+  },
 ];
 
 const GoogleIcon = () => (
@@ -127,6 +134,10 @@ const Certifications = () => {
                 ) : cert.title.includes("Vibe Coding") ? (
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
                     <span className="text-white text-xs font-bold">♥</span>
+                  </div>
+                ) : cert.isGovt ? (
+                  <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center">
+                    <span className="text-lg">🏛️</span>
                   </div>
                 ) : (
                   <Award className="w-6 h-6 text-neon-purple" />
