@@ -24,11 +24,19 @@ const projects = [
     ],
   },
   {
-    title: "E-Com Funnel Optimizer",
-    desc: "End-to-end e-commerce funnel that boosted conversions by 65%. Custom checkout flow with A/B testing built in.",
-    tags: ["Next.js", "Stripe", "Tailwind"],
+    title: "E-Commerce",
+    subtitle: "Complete E-Commerce Platform",
+    desc: "Complete e-commerce website development solution with courier sync, payment control, Meta Ads automation, and advanced order intelligence — designed for BD online businesses.",
+    tags: ["React", "Node.js", "Supabase"],
     category: "E-Commerce",
-    color: "glow-blue",
+    link: "/project/ecommerce",
+    image: ecommercePreview,
+    features: [
+      { icon: ShoppingCart, label: "Order Management" },
+      { icon: Megaphone, label: "Marketing Automation" },
+      { icon: Truck, label: "Courier Integration" },
+      { icon: BarChart3, label: "Product Analysis" },
+    ],
   },
   {
     title: "Lead Gen Machine",
