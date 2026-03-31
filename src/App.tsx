@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Index from "./pages/Index.tsx";
 import ProjectHRM from "./pages/ProjectHRM.tsx";
+import ProjectEcommerce from "./pages/ProjectEcommerce.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 
@@ -22,6 +23,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/project/hrm" element={<ProjectHRM />} />
+            <Route path="/project/ecommerce" element={<ProjectEcommerce />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
