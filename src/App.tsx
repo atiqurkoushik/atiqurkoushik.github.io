@@ -9,6 +9,7 @@ import ProjectHRM from "./pages/ProjectHRM.tsx";
 import ProjectEcommerce from "./pages/ProjectEcommerce.tsx";
 import ProjectEmailAutomation from "./pages/ProjectEmailAutomation.tsx";
 import ProjectWoocommerce from "./pages/ProjectWoocommerce.tsx";
+import ProjectMetaAds from "./pages/ProjectMetaAds.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 
