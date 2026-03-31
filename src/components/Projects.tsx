@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Users, Clock, AlertTriangle, DollarSign, Activity, ShoppingCart, Megaphone, Truck, BarChart3, Mail, Flame, Inbox, ListOrdered } from "lucide-react";
+import { ExternalLink, Users, Clock, AlertTriangle, DollarSign, Activity, ShoppingCart, Megaphone, Truck, BarChart3, Mail, Flame, Inbox, ListOrdered, CalendarClock, MapPin, Cog } from "lucide-react";
 import { Link } from "react-router-dom";
 import hrmPreview from "@/assets/hrm-preview.png";
 import ecommercePreview from "@/assets/ecommerce-preview.png";
 import emailAutomationPreview from "@/assets/email-automation-preview.png";
+import woocommercePreview from "@/assets/woocommerce-preview.png";
 
 const categories = ["All", "Web App", "Marketing", "SaaS", "E-Commerce"];
 
@@ -55,11 +56,19 @@ const projects = [
     ],
   },
   {
-    title: "SaaS Landing Builder",
-    desc: "Drag-and-drop landing page builder for SaaS companies. 50+ templates, analytics, and A/B testing.",
-    tags: ["React", "TypeScript", "Supabase"],
-    category: "Web App",
-    color: "glow-purple",
+    title: "WooCommerce Shop",
+    subtitle: "Multi-Location Bakery E-Commerce",
+    desc: "Customized e-commerce website for a multi-location bakery with scheduled ordering, location-based menus, and WooCommerce automation.",
+    tags: ["WordPress", "WooCommerce", "PHP"],
+    category: "E-Commerce",
+    link: "/project/woocommerce",
+    image: woocommercePreview,
+    features: [
+      { icon: ShoppingCart, label: "Order Management" },
+      { icon: CalendarClock, label: "Schedule Orders" },
+      { icon: MapPin, label: "Location Pages" },
+      { icon: Cog, label: "WooCommerce Automation" },
+    ],
   },
   {
     title: "Brand Identity Platform",
