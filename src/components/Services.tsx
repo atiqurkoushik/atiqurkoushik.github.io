@@ -32,6 +32,12 @@ const services = [
     desc: "End-to-end launch support — from MVP to market. Strategy, build, ship, iterate.",
     glow: "hover:glow-orange",
   },
+  {
+    icon: Zap,
+    title: "E-Commerce Automation",
+    desc: "Shopify, WooCommerce, and custom store automation — from inventory to checkout, fully optimized.",
+    glow: "hover:glow-purple",
+  },
 ];
 
 const Services = () => {
