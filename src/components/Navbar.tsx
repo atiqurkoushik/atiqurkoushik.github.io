@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import avatarImg from "@/assets/koushik-avatar.png";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -23,8 +24,11 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 glass"
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        <a href="#" className="text-2xl font-heading font-bold gradient-text">
-          KA
+        <a href="#" className="flex items-center gap-2 group">
+          <div className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-primary/60 group-hover:ring-primary transition-all duration-300 shadow-[0_0_12px_rgba(168,85,247,0.4)] group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)]">
+            <img src={avatarImg} alt="Koushik Atiqur" className="w-full h-full object-cover" />
+          </div>
+          <span className="text-lg font-heading font-bold gradient-text">Koushik</span>
         </a>
 
         {/* Desktop */}
