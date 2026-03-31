@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Zap } from "lucide-react";
 
 const skillCategories = [
   {
@@ -19,7 +20,7 @@ const skillCategories = [
       { name: "React / Next.js", level: 90 },
       { name: "TypeScript", level: 85 },
       { name: "Node.js", level: 80 },
-      { name: "Python", level: 75 },
+      { name: "PHP", level: 75 },
       { name: "Tailwind CSS", level: 92 },
     ],
   },
@@ -28,7 +29,8 @@ const skillCategories = [
     color: "from-neon-orange to-neon-purple",
     skills: [
       { name: "AI Prompt Engineering", level: 92 },
-      { name: "Figma", level: 85 },
+      { name: "WordPress", level: 85 },
+      { name: "Shopify", level: 88 },
       { name: "HubSpot", level: 88 },
       { name: "Google Analytics", level: 90 },
       { name: "AWS / Cloud", level: 72 },
@@ -58,6 +60,51 @@ const Skills = () => {
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             A rare blend of sales hustle and technical chops. I don't just talk strategy — I build it.
           </p>
+        </motion.div>
+
+        {/* 🔥 Special Skill — E-Commerce Automation */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 relative"
+        >
+          <div className="relative glass rounded-2xl p-6 md:p-8 border border-primary/30 overflow-hidden">
+            {/* Animated glow background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/10 via-neon-blue/10 to-neon-orange/10 animate-pulse-glow pointer-events-none" />
+            <div className="absolute -top-20 -right-20 w-60 h-60 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-neon-orange/15 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-neon-purple via-neon-blue to-neon-orange flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.5)]"
+              >
+                <Zap className="w-8 h-8 text-white" />
+              </motion.div>
+              <div className="text-center md:text-left flex-1">
+                <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
+                  <h3 className="text-xl md:text-2xl font-heading font-bold gradient-text">
+                    E-Commerce Automation
+                  </h3>
+                  <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary rounded-full border border-primary/30 animate-pulse">
+                    Specialist
+                  </span>
+                </div>
+                <p className="text-muted-foreground text-sm md:text-base max-w-2xl">
+                  I automate the entire e-commerce pipeline — from inventory sync and order fulfillment to abandoned cart recovery and dynamic pricing. Your store runs on autopilot while you scale.
+                </p>
+              </div>
+              <div className="flex-shrink-0">
+                <div className="text-4xl md:text-5xl font-heading font-black gradient-text">
+                  98%
+                </div>
+                <p className="text-xs text-muted-foreground text-center">Mastery</p>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
