@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Users, Clock, AlertTriangle, DollarSign, Activity, ShoppingCart, Megaphone, Truck, BarChart3 } from "lucide-react";
+import { ExternalLink, Users, Clock, AlertTriangle, DollarSign, Activity, ShoppingCart, Megaphone, Truck, BarChart3, Mail, Flame, Inbox, ListOrdered } from "lucide-react";
 import { Link } from "react-router-dom";
 import hrmPreview from "@/assets/hrm-preview.png";
 import ecommercePreview from "@/assets/ecommerce-preview.png";
+import emailAutomationPreview from "@/assets/email-automation-preview.png";
 
 const categories = ["All", "Web App", "Marketing", "SaaS", "E-Commerce"];
 
@@ -39,11 +40,19 @@ const projects = [
     ],
   },
   {
-    title: "Lead Gen Machine",
-    desc: "Automated lead generation system handling 10k+ leads/month. CRM integration with HubSpot and custom scoring.",
-    tags: ["Python", "HubSpot", "APIs"],
+    title: "Email Automation",
+    subtitle: "Cold Email Sending Platform",
+    desc: "Full-featured cold email platform with auto warm-up, unlimited SMTP/IMAP support, master inbox (Unibox), and smart email sequences for outbound campaigns.",
+    tags: ["React", "Node.js", "Supabase"],
     category: "Marketing",
-    color: "glow-orange",
+    link: "/project/email-automation",
+    image: emailAutomationPreview,
+    features: [
+      { icon: Flame, label: "Auto Email Warm-Up" },
+      { icon: Mail, label: "Unlimited SMTP & IMAP" },
+      { icon: Inbox, label: "Unibox - Master Inbox" },
+      { icon: ListOrdered, label: "Email Sequence" },
+    ],
   },
   {
     title: "SaaS Landing Builder",
