@@ -79,14 +79,33 @@ const Contact = () => {
     e.preventDefault();
     if (!validateStep(3)) return;
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setForm({ firstName: "", lastName: "", businessName: "", email: "", phone: "", service: "", note: "" });
-      setCurrentStep(1);
-    }, 3000);
+    try {
+      await emailjs.send(
+        "service_cfpioev",
+        "template_x7lsplb",
+        {
+          firstName: form.firstName,
+          lastName: form.lastName,
+          businessName: form.businessName,
+          email: form.email,
+          phone: form.phone,
+          service: form.service,
+          note: form.note,
+        },
+        "G22_YhLTCKu8Xx9Jq"
+      );
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setForm({ firstName: "", lastName: "", businessName: "", email: "", phone: "", service: "", note: "" });
+        setCurrentStep(1);
+      }, 3000);
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setIsSubmitting(false);
+      alert("Failed to send message. Please try again.");
+    }
   };
 
   const update = (field: string, value: string) => {
