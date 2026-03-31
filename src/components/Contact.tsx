@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Github, Linkedin, Twitter, Mail, MapPin, ChevronRight, ChevronLeft, Check, User, Building2, AtSign, Phone, Briefcase, MessageSquare } from "lucide-react";
+import { Send, Github, Linkedin, Mail, MapPin, ChevronRight, ChevronLeft, Check, User, Building2, AtSign, Phone, Briefcase, MessageSquare, Users, MessageCircle } from "lucide-react";
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com/in/koushik-atiqur", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Mail, href: "mailto:hello@koushikatiqur.com", label: "Email" },
+  { icon: Github, href: "https://github.com/atiqurkoushik", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/koushik-atiqu", label: "LinkedIn" },
+  { icon: Users, href: "https://teams.live.com/l/invite/FEA1rp_aqVp9Du8hQg?v=g1", label: "Teams" },
+  { icon: Mail, href: "mailto:fkoushik2@gmail.com", label: "Email" },
+  { icon: MessageCircle, href: "https://wa.me/8801886130929", label: "WhatsApp" },
 ];
 
 const services = [
