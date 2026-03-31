@@ -415,7 +415,7 @@ const Contact = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex items-center gap-3 text-muted-foreground">
                   <Mail size={16} className="text-primary" />
-                  hello@koushikatiqur.com
+                  fkoushik2@gmail.com
                 </div>
                 <div className="flex items-center gap-3 text-muted-foreground">
                   <MapPin size={16} className="text-primary" />
