@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Users, Clock, AlertTriangle, DollarSign, Activity } from "lucide-react";
+import hrmPreview from "@/assets/hrm-preview.png";
 
 const categories = ["All", "Web App", "Marketing", "SaaS", "E-Commerce"];
 
 const projects = [
   {
-    title: "Revenue Dashboard Pro",
-    desc: "Real-time analytics dashboard for sales teams. Built with React, D3.js, and Node.js. Increased team productivity by 40%.",
-    tags: ["React", "Node.js", "D3.js"],
+    title: "HRM",
+    subtitle: "Human Resource Management System",
+    desc: "Full-featured HRM with night shift support (8PM-5AM), 1:3 late penalty ratio, auto payroll with attendance-based adjustments, and real-time clock-in/out tracking. Built for modern workforce management.",
+    tags: ["React", "Node.js", "Supabase"],
     category: "SaaS",
     color: "glow-purple",
+    image: hrmPreview,
+    features: [
+      { icon: Clock, label: "Night Shift 8PM-5AM" },
+      { icon: AlertTriangle, label: "1:3 Late Penalty" },
+      { icon: DollarSign, label: "Auto Payroll" },
+      { icon: Activity, label: "Real-time Attendance" },
+    ],
   },
   {
     title: "E-Com Funnel Optimizer",
