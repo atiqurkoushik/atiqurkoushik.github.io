@@ -33,6 +33,8 @@ const App = () => (
             <Route path="/project/woocommerce" element={<ProjectWoocommerce />} />
             <Route path="/project/meta-ads" element={<ProjectMetaAds />} />
             <Route path="/project/marketing-website" element={<ProjectMarketingWebsite />} />
+            <Route path="/project/marketing-website" element={<ProjectMarketingWebsite />} />
+            <Route path="/projects" element={<AllProjects />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
