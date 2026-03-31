@@ -18,7 +18,7 @@ const Index = () => {
   }, []);
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       <LoadingScreen isLoading={isLoading} />
       <Navbar />
       <main>
