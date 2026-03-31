@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code, TrendingUp, Megaphone, Palette, Database, Rocket } from "lucide-react";
+import { Code, TrendingUp, Megaphone, Database, Rocket } from "lucide-react";
 
 const services = [
   {
@@ -19,12 +19,6 @@ const services = [
     title: "Digital Marketing",
     desc: "SEO, content strategy, and paid campaigns that drive real, measurable growth.",
     glow: "hover:glow-orange",
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    desc: "Clean, intuitive interfaces that users love. From wireframes to polished prototypes.",
-    glow: "hover:glow-purple",
   },
   {
     icon: Database,
