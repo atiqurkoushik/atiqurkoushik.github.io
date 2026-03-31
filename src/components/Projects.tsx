@@ -171,7 +171,7 @@ const Projects = () => {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  className={`glass rounded-2xl p-6 group cursor-pointer hover:${project.color} transition-all duration-500`}
+                  className="glass rounded-2xl p-6 group cursor-pointer transition-all duration-500"
                 >
                   <CardWrapper>
                     {/* Thumbnail */}
