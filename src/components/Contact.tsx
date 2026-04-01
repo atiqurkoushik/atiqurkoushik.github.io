@@ -339,7 +339,7 @@ const Contact = () => {
               </AnimatePresence>
 
               {/* Navigation Buttons */}
-              <div className="flex items-center justify-between mt-8 gap-4">
+              <div className={`flex items-center mt-8 gap-4 ${currentStep === 3 && currentStep > 1 ? 'justify-center' : 'justify-between'}`}>
                 {currentStep > 1 ? (
                   <motion.button
                     type="button"
