@@ -29,6 +29,14 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Add Google Search Console Verification Meta Tag
+        run: |
+          sed -i 's/<\/head>/<meta name="google-site-verification" content="fyb5NhGYCkKpFsBqGUPpth6Lmu0TH0N_ggVyl3SvZzk" \/><\/head>/' dist/index.html
+          
+      - name: Verify Meta Tag was Added
+        run: |
+          grep -o 'google-site-verification' dist/index.html || echo "WARNING: Meta tag not found!"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
